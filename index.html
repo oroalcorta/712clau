@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CASINO CLAU712</title>
   <style>
     html, body {
@@ -108,7 +108,7 @@
       text-shadow: 1px 1px 2px #00000066;
     }
     .info-box-wrapper {
-      margin-top: auto;
+      margin-top: 15rem;
     }
     .info-box {
       background: white;
@@ -126,13 +126,13 @@
   <div id="userSection" style="display: flex; flex-direction: column; flex: 1;">
     <div>
       <h1>CASINO CLAU712</h1>
-      <input id="usernameInput" placeholder="INGRESÁ TU USUARIO">
+      <input id="usernameInput" placeholder="INGRESÁ TU USUARIO" />
       <button onclick="startGame()">CONTINUAR</button>
     </div>
     <div class="info-box-wrapper">
       <div class="info-box">
-        <strong style="font-size: 1.5rem;">CASINO CLAU712</strong><br>
-        Clau712 te acompaña hace años con la misma suerte de siempre 🍀, línea 24hs activa.<br><br>
+        <strong style="font-size: 1.5rem;">CASINO CLAU712</strong><br />
+        Clau712 te acompaña hace años con la misma suerte de siempre 🍀, línea 24hs activa.<br /><br />
         <a class="whatsapp" href="https://wa.me/5491136953231" target="_blank">📱 CONTACTANOS AQUÍ</a>
       </div>
     </div>
@@ -220,7 +220,7 @@
     const resultBox = document.getElementById("resultBox");
     resultBox.style.display = "block";
 
-    if (lastSpin === today && !extraSpinUsed) {
+    if (lastSpin === today) {
       resultBox.innerHTML = `❌‼️ YA USASTE TU GIRO HOY ‼️❌, VOLVÉ MAÑANA😁🎰.`;
       return;
     }
@@ -256,6 +256,7 @@
       } else if (premio.label.includes("OTRO GIRO")) {
         resultBox.innerHTML = `🔁 TENÉS UNA SEGUNDA OPORTUNIDAD, ¡APROVECHALA!`;
         extraSpinUsed = true;
+        localStorage.setItem("lastSpinDate", today + "-extra"); // marca que se usó un giro
       } else {
         winSound.play();
         resultBox.innerHTML = `🎉 <strong>¡FELICIDADES!</strong> GANASTE: <strong>${premio.label.toUpperCase()}</strong> 🎊`;
