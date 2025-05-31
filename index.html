@@ -154,6 +154,8 @@
 <audio id="spinSound" src="https://www.soundjay.com/misc/sounds/slot-machine-1.mp3"></audio>
 <audio id="winSound" src="https://www.soundjay.com/human/sounds/applause-8.mp3"></audio>
 
+<!-- ... TODO IGUAL HASTA ARRIBA ... -->
+
 <script>
   const premios = [
     { label: "🌟 50.000 GRATIS", color: "#ff33cc", prob: 0 },
@@ -171,6 +173,7 @@
   const radius = canvas.width / 2;
   let username = "";
   let extraSpinUsed = false;
+  let isSpinning = false; // 🔒 bloqueador
 
   function drawWheel() {
     const arc = 2 * Math.PI / premios.length;
@@ -215,6 +218,11 @@
   }
 
   document.getElementById("spin").addEventListener("click", () => {
+    if (isSpinning) return; // 🛑 ya está girando
+    isSpinning = true;
+    const spinBtn = document.getElementById("spin");
+    spinBtn.disabled = true;
+
     const lastSpin = localStorage.getItem("lastSpinDate");
     const today = new Date().toLocaleDateString();
     const resultBox = document.getElementById("resultBox");
@@ -222,6 +230,8 @@
 
     if (lastSpin === today) {
       resultBox.innerHTML = `❌‼️ YA USASTE TU GIRO HOY ‼️❌, VOLVÉ MAÑANA😁🎰.`;
+      isSpinning = false;
+      spinBtn.disabled = false;
       return;
     }
 
@@ -256,12 +266,14 @@
       } else if (premio.label.includes("OTRO GIRO")) {
         resultBox.innerHTML = `🔁 TENÉS UNA SEGUNDA OPORTUNIDAD, ¡APROVECHALA!`;
         extraSpinUsed = true;
-        localStorage.setItem("lastSpinDate", today + "-extra"); // marca que se usó un giro
+        localStorage.setItem("lastSpinDate", today + "-extra");
       } else {
         winSound.play();
         resultBox.innerHTML = `🎉 <strong>¡FELICIDADES!</strong> GANASTE: <strong>${premio.label.toUpperCase()}</strong> 🎊`;
         localStorage.setItem("lastSpinDate", today);
       }
+      isSpinning = false; // 🔓 desbloquea
+      spinBtn.disabled = false;
     }, 6100);
   });
 </script>
