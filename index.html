@@ -137,32 +137,6 @@
   </style>
 </head>
 <body>
-  <script>
-// Bloqueo Safari navegación privada (compatible con iOS 17+)
-(async () => {
-  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-  if (!isSafari) return;
-
-  let isPrivate = false;
-
-  try {
-    const fs = window.RequestFileSystem || window.webkitRequestFileSystem;
-    if (!fs) return;
-
-    await new Promise((resolve, reject) => {
-      fs(window.TEMPORARY, 100, resolve, reject);
-    });
-  } catch (_) {
-    isPrivate = true;
-  }
-
-  if (isPrivate) {
-    alert("🚫 No podés jugar desde Safari en modo incógnito. Usá otro navegador o desactivá el modo privado.");
-    document.body.innerHTML = "<h2 style='color: white; text-align: center; margin-top: 50px;'>🚫 No podés jugar desde Safari en modo incógnito.</h2>";
-    throw new Error("⛔ Bloqueado por Safari en incógnito");
-  }
-})();
-</script>
   <div class="container">
     <div id="userSection">
       <h1>🍀 CASINO CLAU712 🔮</h1>
